@@ -62,7 +62,8 @@ public class UDPBroadcaster{
     				throw new IllegalArgumentException();
     			
     			addressList.add(new Connectable(packet.getAddress(), packetData[2], packetData[1]));
-    			System.out.println("Got reply from " + packet.getAddress() + ". Server app version " + packetData[1]);
+    			System.out.println("Got reply from " + packet.getAddress() + "!");
+    			System.out.println("Server Name: " + packetData[2] + " | App version: " + packetData[1]);
     		}catch(IOException ioe){
     			System.out.println("No reply that time...");
     		}catch(IllegalArgumentException iae){
