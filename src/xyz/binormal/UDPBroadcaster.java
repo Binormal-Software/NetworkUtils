@@ -12,7 +12,7 @@ import java.util.List;
  * @author Ryan Rodriguez
  * 
  */
-public class UDPBroadcaster{
+public class UDPBroadcaster implements AutoCloseable{
 	
 	private String handshakeMessage;
 	
@@ -76,5 +76,11 @@ public class UDPBroadcaster{
     	return addressList;
 
     }
+
+	
+    @Override
+	public void close() throws Exception {
+		//TODO
+	}
  
 }

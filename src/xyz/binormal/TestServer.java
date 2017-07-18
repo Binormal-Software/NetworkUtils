@@ -10,19 +10,15 @@ class TestServer implements Runnable
 
 	public static final int DEFAULT_PORT = 2016;
 	public static final String HANDSHAKE = "12345";
-	private DatagramSocket socket;
-	private DatagramPacket packet;
-
+	
 	public static void main(String[] args){
 		(new Thread(new TestServer())).start();
 	}
 
 	public void run(){
 
-		try{
-
-			socket = new DatagramSocket(DEFAULT_PORT);
-			packet = new DatagramPacket (new byte[1], 1);
+		try(DatagramSocket socket = new DatagramSocket(DEFAULT_PORT)){
+			DatagramPacket packet = new DatagramPacket (new byte[1], 1);
 
 			System.out.println("Server running on port " + DEFAULT_PORT );
 
@@ -33,7 +29,7 @@ class TestServer implements Runnable
 				int clientPort = packet.getPort();
 
 				System.out.println("Received ping from: " + clientAddress + ":" + clientPort);
-				packet.setData (Utils.getFingerprint(HANDSHAKE, "version 1.0", "Test Server!")); // respond to broadcast
+				packet.setData (Utils.getFingerprint(HANDSHAKE, "1.0", "Test Server")); // respond to broadcast
 				socket.send(packet);
 
 			}
