@@ -1,5 +1,4 @@
 package xyz.binormal;
-import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 class TestClient {
@@ -9,9 +8,7 @@ class TestClient {
 	
 	public static void main(String[] args) {
 		
-		try {
-			
-			UDPBroadcaster bcast = new UDPBroadcaster(HANDSHAKE);
+		try(UDPBroadcaster bcast = new UDPBroadcaster(HANDSHAKE)){
 			InterfaceLocator il = new InterfaceLocator();
 			
 			bcast.findAddresses(DEFAULT_PORT, il.getHostAddress(), 2000);
@@ -19,7 +16,7 @@ class TestClient {
 		} catch(SocketTimeoutException e){
 			System.err.println("Failed to locate server. (No response.) Request timed out.");
 		
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		
